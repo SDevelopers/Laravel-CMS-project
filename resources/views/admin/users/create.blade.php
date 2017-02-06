@@ -32,8 +32,8 @@
 		</div>
 
 		<div class='form-group'>
-		   <p>{!! Form::label('file', 'File: ') !!}</p>
-		    {!! Form::file('file', null, ['class'=>'form-control']) !!}
+		   <p>{!! Form::label('photo_id', 'Photo: ') !!}</p>
+		    {!! Form::file('photo_id', null, ['class'=>'form-control']) !!}
 		</div>
        
         <div class = 'form-group'>
