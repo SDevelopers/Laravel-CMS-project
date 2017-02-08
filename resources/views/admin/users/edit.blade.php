@@ -53,6 +53,16 @@
 		    
 		   	{!! Form::close() !!}
 
+	   	    {!! Form::open(['method'=>'DELETE', 'action'=>['AdminUsersController@destroy', $user->id]]) !!}
+	   	    
+	   	        <div class = 'form-group'>
+	   	            {!!Form::submit('Delete User', ['class' => 'btn btn-danger'])!!}
+	   	        </div>    
+	   	    
+	   	        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+	   	    
+	   	   	{!! Form::close() !!}
+
 	   	</div>
 	   	
    	</div>
