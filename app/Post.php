@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['category_id', 'photo_id', 'title', 'body'];
+
+    protected $fillable = ['category_id', 'photo_id', 'title', 'body', 'is_active'];
 
 
     public function user(){
@@ -24,6 +25,18 @@ class Post extends Model
     public function category(){
 
     	return $this->belongsTo('App\Category');
+
+    }
+
+    public function comments(){
+
+        return $this->hasMany('App\Comment');
+
+    }
+
+    public function placeHolder(){
+
+        return 'http://placehold.it/700X200';
 
     }
 }

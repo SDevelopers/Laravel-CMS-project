@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Http\Requests\PostsCreateRequest;
 use Illuminate\Support\Facades\Auth;
 
-use App\Post;
+use App\Post; 
 use App\Photo;
 use App\Category;
 
@@ -21,7 +21,7 @@ class AdminPostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
 
         return view('admin.posts.index', compact('posts'));
     }
@@ -33,8 +33,7 @@ class AdminPostsController extends Controller
      */
     public function create()
     {
-        $categories = Category::lists('name', 'id')->all();
-
+        $categories = Category::pluck('name', 'id')->all();
 
         return view('admin.posts.create', compact('categories'));
     }
@@ -89,7 +88,7 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $categories = Category::lists('name', 'id')->all();
+        $categories = Category::pluck('name', 'id')->all();
 
         return view('admin.posts.edit', compact('post', 'categories'));
     }
@@ -130,7 +129,11 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->delete();
+
+        return redirect('/admin/posts');
     }
 
     public function file_upload($file)
@@ -142,5 +145,15 @@ class AdminPostsController extends Controller
         $photo = Photo::create(['file'=>$name]);
 
         $input['photo_id'] = $photo->id;
+    }
+
+    public function post($id){
+
+        $post = Post::findOrFail($id);
+
+        $comments = $post->comments()->whereIsActive(1)->get();
+
+        return view('/post', compact('post', 'comments'));
+
     }
 }

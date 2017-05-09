@@ -3,23 +3,17 @@
 
 @section('content')
 
+@include('includes.tinyeditor')
+
 <h1>Create Post</h1>
 
     {!! Form::open(['id'=>'create-form', 'method'=>'POST', 'action'=>'AdminPostsController@store', 'files'=>true]) !!}
     
+        <div class="col-lg-8">
+        
         <div class='form-group'>
            <p>{!! Form::label('title', 'Title') !!}</p>
             {!! Form::text('title', null, ['class'=>'form-control']) !!}
-        </div>
-
-        <div class='form-group'>
-           <p>{!! Form::label('category_id', 'Catwgory: ') !!}</p>
-            {!! Form::select('category_id', [''=>'Choose Category'] + $categories, null, ['class'=>'form-control']) !!}
-        </div>
-
-        <div class='form-group'>
-           <p>{!! Form::label('photo_id', 'Photo: ', ['class'=>'btn btn-default btn-file'] ) !!}</p>
-            {!! Form::file('photo_id', null) !!}
         </div>
 
         <div class='form-group'>
@@ -30,6 +24,27 @@
         <div class = 'form-group'>
             {!!Form::submit('Create Post', ['class' => 'btn btn-primary', 'rows' => '3'])!!}
         </div>    
+
+        </div>
+
+        <div class="col-lg-4">
+
+          <div class='form-group'>
+             <p>{!! Form::label('is_active', 'Visibility: ') !!}</p>
+              {!! Form::select('is_active', ['1'=>'Active', '0'=>'Not Active'], null, ['class'=>'form-control']) !!}
+          </div>
+
+          <div class='form-group'>
+             <p>{!! Form::label('category_id', 'Category: ') !!}</p>
+              {!! Form::select('category_id', [''=>'Choose Category'] + $categories, null, ['class'=>'form-control']) !!}
+          </div>
+
+          <div class='form-group'>
+             <p>{!! Form::label('photo_id', 'Photo: ' ) !!}</p>
+              {!! Form::file('photo_id', null) !!}
+          </div>
+
+        </div>
     
    	{!! Form::close() !!}
 
